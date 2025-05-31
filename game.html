@@ -93,10 +93,12 @@
       </div>
 
       <div class="drag-area">
-        <p>🎯 Drag the key to the lock to unlock a secret!</p>
-        <img id="key" src="images/key.png" draggable="true" ondragstart="drag(event)">
-        <div id="lock-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
-          <img id="lock" src="images/lock.png">
+        <p>🎯 Drag the 🔑 key into the 🔒 lock to unlock a secret!</p>
+        <div style="display: flex; justify-content: center; align-items: center; gap: 20px; margin-top: 20px;">
+          <div id="key" draggable="true" ondragstart="drag(event)" style="font-size: 48px; cursor: grab;">🔑</div>
+          <div id="lock-zone" ondrop="drop(event)" ondragover="allowDrop(event)" style="width: 60px; height: 60px; font-size: 48px; border: 2px dashed #b84e6c; border-radius: 10px; display: flex; align-items: center; justify-content: center;">
+            🔒
+          </div>
         </div>
         <div id="unlockedMessage" class="unlocked" style="display: none;">🔓 You unlocked my heart!</div>
       </div>
