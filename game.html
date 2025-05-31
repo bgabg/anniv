@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Puzzle Game</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .quiz-section {
+      max-width: 600px;
+      margin: 40px auto;
+      background: #fff9fb;
+      padding: 20px;
+      border-radius: 20px;
+      box-shadow: 0 0 10px #f4cce0;
+    }
+    .quiz-section h2 {
+      color: #b84e6c;
+    }
+    .quiz-section button {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background-color: #f8d0e1;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #8a4b6b;
+      font-weight: bold;
+    }
+    .quiz-section .result {
+      margin-top: 15px;
+      color: green;
+      font-weight: bold;
+    }
+    .drag-area {
+      margin-top: 40px;
+      padding: 20px;
+      text-align: center;
+    }
+    #key {
+      width: 60px;
+      cursor: grab;
+    }
+    #lock {
+      width: 60px;
+      margin-top: 20px;
+    }
+    #lock-zone {
+      width: 80px;
+      height: 80px;
+      margin: 20px auto;
+      border: 2px dashed #8a4b6b;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .unlocked {
+      color: green;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <ul>
+      <li><a href="index.html">About Us</a></li>
+      <li><a href="photos.html">Our Photos</a></li>
+      <li><a href="surprise.html">Surprise Page</a></li>
+      <li><a href="game.html">Puzzle Game</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <section class="quiz-section">
+      <h2>Can You Solve These?</h2>
+
+      <div>
+        <p>When is our anniversary?</p>
+        <input type="text" id="anniversaryInput" placeholder="dd month yyyy">
+        <button onclick="checkAnniversary()">Submit</button>
+        <p id="anniversaryResult" class="result"></p>
+      </div>
+
+      <div style="margin-top: 30px;">
+        <p>When did we first meet?</p>
+        <button onclick="checkMeeting('seventh grade')">Seventh Grade</button>
+        <button onclick="checkMeeting('fifth grade')">Fifth Grade</button>
+        <button onclick="checkMeeting('high school')">High School</button>
+        <p id="meetingResult" class="result"></p>
+      </div>
+
+      <div class="drag-area">
+        <p>🎯 Drag the key to the lock to unlock a secret!</p>
+        <img id="key" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f0/Key_font_awesome.svg/512px-Key_font_awesome.svg.png" draggable="true" ondragstart="drag(event)">
+        <div id="lock-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
+          <img id="lock" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Padlock_font_awesome.svg/512px-Padlock_font_awesome.svg.png">
+        </div>
+        <div id="unlockedMessage" class="unlocked" style="display: none;">🔓 You unlocked my heart!</div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function checkAnniversary() {
+      const input = document.getElementById('anniversaryInput').value.trim().toLowerCase();
+      const correct = "02 june 2024";
+      const result = document.getElementById('anniversaryResult');
+      result.textContent = (input === correct) ? "That's right! 💖" : "Hmm... try again!";
+    }
+
+    function checkMeeting(answer) {
+      const result = document.getElementById('meetingResult');
+      if (answer === 'fifth grade') {
+        result.textContent = "Correct! We met in fifth grade 💫";
+      } else {
+        result.textContent = "Not quite, think back a little further!";
+      }
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+    }
+
+    function drag(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+      ev.preventDefault();
+      const data = ev.dataTransfer.getData("text");
+      const dragged = document.getElementById(data);
+      ev.target.appendChild(dragged);
+      document.getElementById("unlockedMessage").style.display = "block";
+    }
+  </script>
+</body>
+</html>
